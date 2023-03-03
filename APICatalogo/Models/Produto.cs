@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using APICatalogo.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -10,6 +11,7 @@ public class Produto
 
     [Required]
     [MaxLength(80)]
+    [PrimeiraLetraMaiuscula]
     public string? Nome { get; set; }
 
     [Required]

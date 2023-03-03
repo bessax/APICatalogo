@@ -15,7 +15,7 @@ public class CategoriasController : ControllerBase
         _context = context;
     }
 
-    [HttpGet("produtos")]
+    [HttpGet("categorias")]
     public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
     {
         var categoria = _context.Categorias.Include(p=>p.Produtos).AsNoTracking().ToList();
@@ -23,7 +23,7 @@ public class CategoriasController : ControllerBase
         {
             return NotFound("Categoria não encontrados.");
         }
-        return categoria;
+        return Ok(categoria);
     }
 
     [HttpGet]
