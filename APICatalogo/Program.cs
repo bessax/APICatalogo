@@ -1,4 +1,7 @@
 using APICatalogo.Context;
+using APICatalogo.Extensions;
+using APICatalogo.Filters;
+using APICatalogo.Repository.UofW;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -11,13 +14,14 @@ builder.Services.AddControllers().AddJsonOptions(
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+//Registrando filtro
+builder.Services.AddScoped<ApiLogginFilter>();
 //Obtenção da string de conexão e registro do serviço de Context no DI.
 string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>
      (options =>options.UseMySql(mySqlConnection,ServerVersion.AutoDetect(mySqlConnection)));
 
-
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 var app = builder.Build();
 
@@ -33,6 +37,7 @@ if (app.Environment.IsDevelopment())
 //    app.UseExceptionHandler("/Error");
 //}
 
+app.ConfigureExceptionHandler();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
