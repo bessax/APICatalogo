@@ -1,14 +1,15 @@
 ﻿using APICatalogo.Context;
+using System.Runtime.CompilerServices;
 
 namespace APICatalogo.Repository.UofW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private ProdutoRepository _produtoRepo;
+        private ProdutoRepository? _produtoRepo;
 
-        private CategoriaRepository _categoriaRepo;
+        private CategoriaRepository? _categoriaRepo;
 
-        public AppDbContext _context;
+        public AppDbContext? _context;
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -29,9 +30,9 @@ namespace APICatalogo.Repository.UofW
             }
         }
 
-        public void Commit()
+        public async Task Commit()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         public void Dispose()
         {
