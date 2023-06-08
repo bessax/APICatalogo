@@ -4,7 +4,11 @@ using APICatalogo.Extensions;
 using APICatalogo.Filters;
 using APICatalogo.Repository.UofW;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +27,26 @@ string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConn
 builder.Services.AddDbContext<AppDbContext>
      (options =>options.UseMySql(mySqlConnection,ServerVersion.AutoDetect(mySqlConnection)));
 
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+    opt => opt.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidAudience = builder.Configuration["JWTTokenConfiguration:Audience"],
+        ValidIssuer = builder.Configuration["JWTTokenConfiguration:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["JWTKey:key"])),
+    });
+
 
 //Adicionando o automapper.
 var mappingConfig = new MapperConfiguration(mc =>
@@ -32,6 +55,8 @@ var mappingConfig = new MapperConfiguration(mc =>
 });
 IMapper mapper = mappingConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
+
+builder.Services.ConfigureSwaggerBearer();
 
 var app = builder.Build();
 
@@ -48,7 +73,10 @@ if (app.Environment.IsDevelopment())
 //}
 
 app.ConfigureExceptionHandler();
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
