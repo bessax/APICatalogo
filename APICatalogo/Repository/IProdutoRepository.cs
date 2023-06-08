@@ -6,6 +6,6 @@ namespace APICatalogo.Repository
     public interface IProdutoRepository:IRepository<Produto>
     {
         IEnumerable<Produto> GetProdutosPorPreco();
-        IEnumerable<Produto> GetProdutos(ProdutosParameters parameters);
+        PagedList<Produto> GetProdutos(ProdutosParameters parameters);
     }
 }

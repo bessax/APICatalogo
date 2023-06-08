@@ -9,13 +9,15 @@ namespace APICatalogo.Repository
         private readonly AppDbContext _context;
         public ProdutoRepository(AppDbContext context):base(context) { }
 
-        public IEnumerable<Produto> GetProdutos(ProdutosParameters parameters)
+        public PagedList<Produto> GetProdutos(ProdutosParameters parameters)
         {
-            return Get()
-                .OrderBy(on=>on.Nome)
-                .Skip((parameters.PageNumber -1) * parameters.PageSize)
-                .Take(parameters.PageSize)
-                .ToList();
+            //return Get()
+            //    .OrderBy(on=>on.Nome)
+            //    .Skip((parameters.PageNumber -1) * parameters.PageSize)
+            //    .Take(parameters.PageSize)
+            //    .ToList();
+
+            return PagedList<Produto>.ToPagedList(Get().OrderBy(x=>x.Nome), parameters.PageNumber, parameters.PageSize);
         }
 
         public IEnumerable<Produto> GetProdutosPorPreco()
