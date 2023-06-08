@@ -13,6 +13,7 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(opt => opt.AddPolicy("PermitirApiRequest",builder=>builder.AllowAnyOrigin()));
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(
     options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });
@@ -79,6 +80,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors(opt => opt.AllowAnyOrigin());
 
 app.MapControllers();
 

@@ -5,6 +5,7 @@ using APICatalogo.Repository.UofW;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -13,6 +14,7 @@ namespace APICatalogo.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[EnableCors("PermitirApiRequest")]
 public class CategoriasController : ControllerBase
 {
     private readonly IUnitOfWork _uof;
