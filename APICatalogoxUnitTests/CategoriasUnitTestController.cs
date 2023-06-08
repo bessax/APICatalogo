@@ -79,5 +79,22 @@ namespace APICatalogoxUnitTests
             Assert.Equal("Bebida", lista[0].Nome );
             Assert.Equal("bebidas.jpg", lista[0].ImagemURL);
         }
+
+        [Fact]
+        public void GetCategoriaById_Return_OkResult()
+        {
+            //Arrange
+            var controller = new CategoriasController(_uof, _mapper);
+            var parameters = new CategoriasParameters { PageNumber = 1, PageSize = 10 };
+            var catId = 2;
+
+            //Act
+            var data = controller.Get(catId);
+
+            //Assert
+            Assert.NotNull(data);
+            Assert.IsType<ActionResult<CategoriaDTO>>(data.Result);
+
+        }
     }
 }
