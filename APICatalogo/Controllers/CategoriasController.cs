@@ -13,17 +13,17 @@ namespace APICatalogo.Controllers;
 
 [Route("api/{v:apiVersion}/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [EnableCors("PermitirApiRequest")]
 public class CategoriasController : ControllerBase
 {
     private readonly IUnitOfWork _uof;
-    private readonly ILogger _logger;
+    //private readonly ILogger _logger;
     private readonly IMapper _mapper;
-    public CategoriasController(IUnitOfWork uof, ILogger<CategoriasController> logger, IMapper mapper)
+    public CategoriasController(IUnitOfWork uof, /*ILogger<CategoriasController> logger,*/ IMapper mapper)
     {
         _uof = uof;
-        _logger = logger;
+       // _logger = logger;
         _mapper = mapper;
     }
 
@@ -57,7 +57,11 @@ public class CategoriasController : ControllerBase
                 categoria.HasPrevious
             };
 
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            if (Response!=null)
+            {
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            }
+           
 
             var categoriaDTO = _mapper.Map<List<CategoriaDTO>>(categoria);
             if (categoria is null)
