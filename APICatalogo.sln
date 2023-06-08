@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APICatalogo", "APICatalogo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APICatalogoxUnitTests", "APICatalogoxUnitTests\APICatalogoxUnitTests.csproj", "{8A1C5F0A-CE65-4654-940F-89AD8F6631FD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8243E227-B8DE-4EFB-80BE-472CB4157BD3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4A14AC2F-0EA6-4E66-B6F6-7D988364394C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{329594F2-5A19-44EF-B62A-50D88677D277} = {8243E227-B8DE-4EFB-80BE-472CB4157BD3}
+		{8A1C5F0A-CE65-4654-940F-89AD8F6631FD} = {4A14AC2F-0EA6-4E66-B6F6-7D988364394C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A164B62-040B-4A17-B038-46A262A79E9B}
