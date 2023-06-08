@@ -6,6 +6,7 @@ using APICatalogo.Repository.UofW;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -27,6 +28,16 @@ builder.Services.AddScoped<ApiLogginFilter>();
 string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>
      (options =>options.UseMySql(mySqlConnection,ServerVersion.AutoDetect(mySqlConnection)));
+
+//Versionamento
+builder.Services.AddApiVersioning(opt =>
+{
+    opt.AssumeDefaultVersionWhenUnspecified = true;
+    opt.DefaultApiVersion = new ApiVersion(1, 0);
+    opt.ReportApiVersions = true;
+});
+
+
 
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()

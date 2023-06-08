@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace APICatalogo.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/{v:apiVersion}/[controller]")]
 [ApiController]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [EnableCors("PermitirApiRequest")]

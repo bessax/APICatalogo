@@ -1,6 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
 
-
 namespace APICatalogo.Extensions
 {
     public static class ConfigureBasicSwagger
