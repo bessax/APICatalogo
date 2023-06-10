@@ -20,6 +20,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule } from '@angular/material/toolbar';
 import { MenuComponent } from './menu/menu.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSidenavModule,
     MatTableModule,
     MatToolbarModule,
-    MatButtonModule   
+    MatButtonModule,
+    ReactiveFormsModule  
   ],
   providers: [],
   bootstrap: [AppComponent]
